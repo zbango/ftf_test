@@ -15,6 +15,7 @@ import Alert from "@material-ui/lab/Alert";
 import { useSelector } from "react-redux";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Container from "@material-ui/core/Container";
+import RepoInformation from "../RepoInformation/RepoInformation";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -24,16 +25,8 @@ const useStyles = makeStyles((theme) => ({
 			background: "#F6F8FA",
 		},
 	},
-	secondaryTail: {
-		backgroundColor: theme.palette.secondary.main,
-	},
 	content: {
 		flex: 200,
-	},
-	info: {
-		background: "#FAFBFC",
-		padding: 26,
-		marginTop: "50px",
 	},
 	avatar: {
 		width: theme.spacing(3),
@@ -43,13 +36,16 @@ const useStyles = makeStyles((theme) => ({
 	margin: {
 		margin: theme.spacing(1),
 	},
+	alert: {
+		marginTop: "10px",
+	},
 }));
 
 function CustomizedTimeline(props) {
 	const classes = useStyles();
 	const data = [...props.data];
 	const isLoading = useSelector((state) => state.timeline.isLoading);
-    const [filter, setFilter] = useState({
+	const [filter, setFilter] = useState({
 		repo: "ftf_test",
 		owner: "zbango",
 	});
@@ -71,13 +67,10 @@ function CustomizedTimeline(props) {
 	});
 
 	return (
-		<>
-			<Search setFilter={setFilter}/>
+		<React.Fragment>
+			<Search setFilter={setFilter} />
 			<Container fixed>
-				<div>
-					Displaying history for <span>{filter.owner}</span>/
-					<span>{filter.repo}</span>
-				</div>
+				<RepoInformation filter={filter} />
 				{isLoading ? (
 					<LinearProgress />
 				) : groupArrays.length > 0 ? (
@@ -92,7 +85,7 @@ function CustomizedTimeline(props) {
 								</TimelineSeparator>
 
 								<TimelineContent className={classes.content}>
-									<Typography variant="h6" component="h1">
+									<Typography variant="h6">
 										{`Commits on ${record.date}`}
 									</Typography>
 									{record.commits.map((data, i) => (
@@ -111,15 +104,12 @@ function CustomizedTimeline(props) {
 													marginTop: "6px",
 												}}
 											>
-												<Typography
-													variant="subtitle1"
-													component="h6"
-												>
+												<Typography variant="caption">
 													{`Commited by ${data.author.login}`}
 												</Typography>
 												<Avatar
 													className={classes.avatar}
-													alt="contact avatar"
+													alt="author avatar"
 													src={data.author.avatar_url}
 												/>
 											</div>
@@ -130,13 +120,12 @@ function CustomizedTimeline(props) {
 						))}
 					</Timeline>
 				) : (
-					<Alert severity="warning">
-						No records found. Please enter a valid owner an
-						repository.
+					<Alert severity="warning" className={classes.alert}>
+						No records found.
 					</Alert>
 				)}
 			</Container>
-		</>
+		</React.Fragment>
 	);
 }
 

@@ -39,6 +39,7 @@ export const timelineSlice = createSlice({
 		},
 		hideMessage: (state, action) => {
 			state.showMessage = false;
+			state.message = ""
 		},
 	},
 	extraReducers: (builder) => {

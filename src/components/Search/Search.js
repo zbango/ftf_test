@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BookIcon from "@material-ui/icons/Book";
 import TextField from "@material-ui/core/TextField";
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 		background: "#FAFBFC",
 		padding: 26,
 		marginTop: "50px",
+		width: "100%"
 	},
 	avatar: {
 		width: theme.spacing(3),
@@ -119,7 +120,7 @@ function Search(props) {
 							form="search-form"
 							size="medium"
 							disabled={isLoading}
-						>
+ 						>
 							Search
 							{isLoading && (
 								<Box ml={1} display="flex" alignItems="center">
