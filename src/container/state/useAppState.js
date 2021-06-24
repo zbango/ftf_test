@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCommits, hideMessage, selectMessage, selectShowMessage, selectIsLoading, selectData } from "../../store/timelineSlice";
 import { useForm } from "react-hook-form";
 
 export const useAppState = (props) => {
-	const dispatch = useDispatch();
-
-	const data = useSelector(selectData);
-	const isLoading = useSelector(selectIsLoading);
-	const showMessage = useSelector(selectShowMessage);
-	const message = useSelector(selectMessage);
 	const [filter, setFilter] = useState({
 		repo: "ftf_test",
 		owner: "zbango",
@@ -24,32 +16,25 @@ export const useAppState = (props) => {
 	});
 
 	useEffect(() => {
-		dispatch(
-			getCommits({
-				owner: "zbango",
-				repo: "ftf_test",
-			})
-		);
-	}, [dispatch]);
+		props.getCommits({
+			owner: "zbango",
+			repo: "ftf_test",
+		});
+	}, []);
 
 	const onHideMessage = () => {
-		dispatch(hideMessage());
+		props.handleShowMessage(false);
 	};
 
 	const onSubmit = (data) => {
 		setFilter(data);
-		dispatch(getCommits(data));
+		props.getCommits(data);
 	};
 
 	return {
 		state: {
-			isLoading,
-			data,
-			showMessage,
-			message,
 			filter,
 		},
-
 		form: {
 			register,
 			errors,
