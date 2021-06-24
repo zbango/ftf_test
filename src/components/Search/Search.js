@@ -7,9 +7,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
-import { useSelector, useDispatch } from "react-redux";
-import { getCommits } from "../../store/timelineSlice";
-import { useForm } from "react-hook-form";
+
 import SearchIcon from "@material-ui/icons/Search";
 import { Grid } from "@material-ui/core";
 
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		background: "#FAFBFC",
 		padding: 26,
 		marginTop: "50px",
-		width: "100%"
+		width: "100%",
 	},
 	avatar: {
 		width: theme.spacing(3),
@@ -42,29 +40,18 @@ const useStyles = makeStyles((theme) => ({
 
 function Search(props) {
 	const classes = useStyles();
-	const dispatch = useDispatch();
-
-	const isLoading = useSelector((state) => state.timeline.isLoading);
 
 	const {
-		register,
-		formState: { errors },
-		handleSubmit,
-	} = useForm({
-		mode: "onChange",
-	});
-
-	const onSubmit = (data) => {
-		props.setFilter(data);
-		dispatch(getCommits(data));
-	};
+		isLoading,
+		form: { register, errors, handleSubmit },
+	} = props;
 
 	return (
 		<>
 			<form
 				id="search-form"
 				noValidate
-				onSubmit={handleSubmit(onSubmit)}
+				onSubmit={handleSubmit(props.onSubmit)}
 				className={classes.info}
 			>
 				<Grid container alignItems="center">
@@ -120,7 +107,7 @@ function Search(props) {
 							form="search-form"
 							size="medium"
 							disabled={isLoading}
- 						>
+						>
 							Search
 							{isLoading && (
 								<Box ml={1} display="flex" alignItems="center">

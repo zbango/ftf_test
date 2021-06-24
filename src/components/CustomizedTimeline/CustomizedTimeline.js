@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Timeline from "@material-ui/lab/Timeline";
 import TimelineItem from "@material-ui/lab/TimelineItem";
@@ -12,7 +12,6 @@ import CodeIcon from "@material-ui/icons/Code";
 import Avatar from "@material-ui/core/Avatar";
 import Search from "../Search/Search";
 import Alert from "@material-ui/lab/Alert";
-import { useSelector } from "react-redux";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Container from "@material-ui/core/Container";
 import RepoInformation from "../RepoInformation/RepoInformation";
@@ -43,39 +42,17 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomizedTimeline(props) {
 	const classes = useStyles();
-	const data = [...props.data];
-	const isLoading = useSelector((state) => state.timeline.isLoading);
-	const [filter, setFilter] = useState({
-		repo: "ftf_test",
-		owner: "zbango",
-	});
+	const { data, isLoading, filter } = props;
 
-	const commits = data.reduce((commits, game) => {
-		const date = game.commit.author.date.split("T")[0];
-		if (!commits[date]) {
-			commits[date] = [];
-		}
-		commits[date].push(game);
-		return commits;
-	}, {});
-
-	const groupArrays = Object.keys(commits).map((date) => {
-		return {
-			date,
-			commits: commits[date],
-		};
-	});
-
-	return (
+ 	return (
 		<React.Fragment>
-			<Search setFilter={setFilter} />
 			<Container fixed>
 				<RepoInformation filter={filter} />
 				{isLoading ? (
 					<LinearProgress />
-				) : groupArrays.length > 0 ? (
+				) : data.length > 0 ? (
 					<Timeline>
-						{groupArrays.map((record, i) => (
+						{data.map((record, i) => (
 							<TimelineItem key={`item${i}`}>
 								<TimelineSeparator>
 									<TimelineDot>
@@ -88,14 +65,14 @@ function CustomizedTimeline(props) {
 									<Typography variant="h6">
 										{`Commits on ${record.date}`}
 									</Typography>
-									{record.commits.map((data, i) => (
+									{record.commits.map((commit, i) => (
 										<Paper
 											key={`paper${i}`}
 											elevation={3}
 											className={classes.paper}
 										>
 											<Typography variant="h5">
-												{data.commit.message}
+												{commit.message}
 											</Typography>
 											<div
 												style={{
@@ -105,12 +82,12 @@ function CustomizedTimeline(props) {
 												}}
 											>
 												<Typography variant="caption">
-													{`Commited by ${data.author.login}`}
+													{`Commited by ${commit.author}`}
 												</Typography>
 												<Avatar
 													className={classes.avatar}
 													alt="author avatar"
-													src={data.author.avatar_url}
+													src={commit.avatar_url}
 												/>
 											</div>
 										</Paper>

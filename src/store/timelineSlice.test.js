@@ -1,24 +1,18 @@
 import reducer, { hideMessage, showMessage } from "./timelineSlice";
 
+const initialSate = {
+	isLoading: false,
+	data: [],
+	value: 0,
+	showMessage: false,
+	message: "",
+};
 test("should return the initial state", () => {
-	expect(reducer(undefined, {})).toEqual({
-		isLoading: false,
-		data: [],
-		value: 0,
-		showMessage: false,
-		message: "",
-	});
+	expect(reducer(undefined, {})).toEqual(initialSate);
 });
 
 test("should handle showMessage true", () => {
-	const previousState = {
-		isLoading: false,
-		data: [],
-		value: 0,
-		showMessage: false,
-		message: "",
-	};
-	expect(reducer(previousState, showMessage({ message: "Hi" }))).toEqual({
+	expect(reducer(initialSate, showMessage({ message: "Hi" }))).toEqual({
 		isLoading: false,
 		data: [],
 		value: 0,
@@ -28,14 +22,7 @@ test("should handle showMessage true", () => {
 });
 
 test("should handle hideMessage true", () => {
-	const previousState = {
-		isLoading: false,
-		data: [],
-		value: 0,
-		showMessage: false,
-		message: "",
-	};
-	expect(reducer(previousState, hideMessage())).toEqual({
+	expect(reducer(initialSate, hideMessage())).toEqual({
 		isLoading: false,
 		data: [],
 		value: 0,

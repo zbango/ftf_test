@@ -25,5 +25,5 @@ module.exports = {
     "!./environments/*.js",
     "./**/*.{js}",
   ],
-  setupFiles: ["../jest.global.jsx"],
+  setupFiles: ["../jest.global.jsx", "<rootDir>/setup.ts"],
 };
