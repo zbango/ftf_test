@@ -41,7 +41,7 @@ Graphic UI to display the git commit history given an owner and repo name of Git
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
  
-## Available scripts
+### Testing
 
 To test the project, you can run:
 

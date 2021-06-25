@@ -37,13 +37,18 @@ const useStyles = makeStyles((theme) => ({
 	alert: {
 		marginTop: "10px",
 	},
+	commited: {
+		display: "flex",
+		alignItems: "center",
+		marginTop: "6px",
+	},
 }));
 
 function CustomizedTimeline(props) {
 	const classes = useStyles();
 	const { data, isLoading, filter } = props;
 
- 	return (
+	return (
 		<React.Fragment>
 			<Container fixed>
 				<RepoInformation filter={filter} />
@@ -73,13 +78,7 @@ function CustomizedTimeline(props) {
 											<Typography variant="h5">
 												{commit.message}
 											</Typography>
-											<div
-												style={{
-													display: "flex",
-													alignItems: "center",
-													marginTop: "6px",
-												}}
-											>
+											<div className={classes.commited}>
 												<Typography variant="caption">
 													{`Commited by ${commit.author}`}
 												</Typography>

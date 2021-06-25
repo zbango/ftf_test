@@ -11,6 +11,6 @@ describe("Header component", () => {
 		const header = shallow(<Header />);
 
 		expect(header.find(AppBar).length).toEqual(1);
-        expect(header.find(Toolbar).length).toEqual(1);
+		expect(header.find(Toolbar).length).toEqual(1);
 	});
 });
