@@ -44,7 +44,7 @@ The server performs a request to `https://api.github.com/repos/${owner}/${repo}/
 4. Server is running on [http://localhost:4000](http://localhost:4000).
 
 
-## Testing
+### Testing
 
 To test the project, you can run:
 

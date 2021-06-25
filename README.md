@@ -13,6 +13,7 @@ Take-Home Test
 
 This project contains a web application with server that shows git commit history of this project and also you can search your own project giving a valid github owner and repo.
 
+![Screenshot](https://github.com/zbango/ftf_test/blob/main/app.png?raw=true)
 
 ## BACKEND
 
@@ -48,7 +49,7 @@ The server performs a request to `https://api.github.com/repos/${owner}/${repo}/
 4. Server is running on [http://localhost:4000](http://localhost:4000).
 
 
-## Testing
+### Testing
 
 To test the project, you can run:
 
@@ -96,7 +97,7 @@ Graphic UI to display the git commit history given an owner and repo name of Git
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
  
-## Available scripts
+### Testing
 
 To test the project, you can run:
 
