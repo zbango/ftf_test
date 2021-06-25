@@ -85,7 +85,7 @@ function CustomizedTimeline(props) {
 												<Avatar
 													className={classes.avatar}
 													alt="author avatar"
-													src={commit.avatar_url}
+													src={commit.avatarUrl}
 												/>
 											</div>
 										</Paper>
