@@ -40,29 +40,10 @@ export const getCommits = (payload) => (dispatch) => {
 	dispatch(setIsLoading(true));
 	axios
 		.get(
-			`https://api.github.com/repos/${payload.owner}/${payload.repo}/commits`
+			`http://localhost:4000/api/v1/commits/${payload.owner}/${payload.repo}`
 		)
 		.then((response) => {
-			const commits = response.data.reduce((commits, game) => {
-				const date = game.commit.author.date.split("T")[0];
-				if (!commits[date]) {
-					commits[date] = [];
-				}
-				commits[date].push(game);
-				return commits;
-			}, {});
-
-			const groupArrays = Object.keys(commits).map((date) => {
-				return {
-					date,
-					commits: commits[date].map((c) => ({
-						message: c.commit.message,
-						author: c.author.login,
-						avatarUrl: c.author.avatar_url,
-					})),
-				};
-			});
-			dispatch(setData(groupArrays));
+			dispatch(setData(response.data));
 			dispatch(setIsLoading(false));
 		})
 		.catch((e) => {
